@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.InmobiLogMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.domain.entity.InmobiLog" >
+    <id column="log_id" property="logId" jdbcType="INTEGER" />
+    <result column="campaign_id" property="campaignId" jdbcType="VARCHAR" />
+    <result column="campaign_name" property="campaignName" jdbcType="VARCHAR" />
+    <result column="adgroup_id" property="adgroupId" jdbcType="VARCHAR" />
+    <result column="adgroup_name" property="adgroupName" jdbcType="VARCHAR" />
+    <result column="site_id" property="siteId" jdbcType="VARCHAR" />
+    <result column="site_name" property="siteName" jdbcType="VARCHAR" />
+    <result column="request_uid" property="requestUid" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="DATE" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.example.demo.domain.entity.InmobiLog" extends="BaseResultMap" >
+    <result column="ad_impressions_rendered" property="adImpressionsRendered" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    log_id, campaign_id, campaign_name, adgroup_id, adgroup_name, site_id, site_name, 
+    request_uid, `date`, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    ad_impressions_rendered
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from inmobi_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from inmobi_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.domain.entity.InmobiLog" >
+    insert into inmobi_log (log_id, campaign_id, campaign_name, 
+      adgroup_id, adgroup_name, site_id, 
+      site_name, request_uid, `date`,
+      create_time, update_time, ad_impressions_rendered
+      )
+    values (#{logId,jdbcType=INTEGER}, #{campaignId,jdbcType=VARCHAR}, #{campaignName,jdbcType=VARCHAR}, 
+      #{adgroupId,jdbcType=VARCHAR}, #{adgroupName,jdbcType=VARCHAR}, #{siteId,jdbcType=VARCHAR}, 
+      #{siteName,jdbcType=VARCHAR}, #{requestUid,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{adImpressionsRendered,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.domain.entity.InmobiLog" >
+    insert into inmobi_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        log_id,
+      </if>
+      <if test="campaignId != null" >
+        campaign_id,
+      </if>
+      <if test="campaignName != null" >
+        campaign_name,
+      </if>
+      <if test="adgroupId != null" >
+        adgroup_id,
+      </if>
+      <if test="adgroupName != null" >
+        adgroup_name,
+      </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
+      <if test="siteName != null" >
+        site_name,
+      </if>
+      <if test="requestUid != null" >
+        request_uid,
+      </if>
+      <if test="date != null" >
+        `date`,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="adImpressionsRendered != null" >
+        ad_impressions_rendered,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="campaignId != null" >
+        #{campaignId,jdbcType=VARCHAR},
+      </if>
+      <if test="campaignName != null" >
+        #{campaignName,jdbcType=VARCHAR},
+      </if>
+      <if test="adgroupId != null" >
+        #{adgroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="adgroupName != null" >
+        #{adgroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="siteName != null" >
+        #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="requestUid != null" >
+        #{requestUid,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adImpressionsRendered != null" >
+        #{adImpressionsRendered,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.domain.entity.InmobiLog" >
+    update inmobi_log
+    <set >
+      <if test="campaignId != null" >
+        campaign_id = #{campaignId,jdbcType=VARCHAR},
+      </if>
+      <if test="campaignName != null" >
+        campaign_name = #{campaignName,jdbcType=VARCHAR},
+      </if>
+      <if test="adgroupId != null" >
+        adgroup_id = #{adgroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="adgroupName != null" >
+        adgroup_name = #{adgroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="siteName != null" >
+        site_name = #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="requestUid != null" >
+        request_uid = #{requestUid,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        `date` = #{date,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adImpressionsRendered != null" >
+        ad_impressions_rendered = #{adImpressionsRendered,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.domain.entity.InmobiLog" >
+    update inmobi_log
+    set campaign_id = #{campaignId,jdbcType=VARCHAR},
+      campaign_name = #{campaignName,jdbcType=VARCHAR},
+      adgroup_id = #{adgroupId,jdbcType=VARCHAR},
+      adgroup_name = #{adgroupName,jdbcType=VARCHAR},
+      site_id = #{siteId,jdbcType=VARCHAR},
+      site_name = #{siteName,jdbcType=VARCHAR},
+      request_uid = #{requestUid,jdbcType=VARCHAR},
+      `date` = #{date,jdbcType=DATE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      ad_impressions_rendered = #{adImpressionsRendered,jdbcType=LONGVARCHAR}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.domain.entity.InmobiLog" >
+    update inmobi_log
+    set campaign_id = #{campaignId,jdbcType=VARCHAR},
+      campaign_name = #{campaignName,jdbcType=VARCHAR},
+      adgroup_id = #{adgroupId,jdbcType=VARCHAR},
+      adgroup_name = #{adgroupName,jdbcType=VARCHAR},
+      site_id = #{siteId,jdbcType=VARCHAR},
+      site_name = #{siteName,jdbcType=VARCHAR},
+      request_uid = #{requestUid,jdbcType=VARCHAR},
+      `date` = #{date,jdbcType=DATE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+
+  <insert id="batchInsert">
+   insert into inmobi_log ( campaign_id, campaign_name,
+      adgroup_id, adgroup_name, site_id,
+      site_name, request_uid, `date`,
+      create_time, update_time, ad_impressions_rendered
+      )
+    values
+     <foreach collection="list" item="item" separator=",">
+       ( #{item.campaignId,jdbcType=VARCHAR}, #{item.campaignName,jdbcType=VARCHAR},
+       #{item.adgroupId,jdbcType=VARCHAR}, #{item.adgroupName,jdbcType=VARCHAR}, #{item.siteId,jdbcType=VARCHAR},
+       #{item.siteName,jdbcType=VARCHAR}, #{item.requestUid,jdbcType=VARCHAR}, #{item.date,jdbcType=DATE},
+       #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.adImpressionsRendered,jdbcType=LONGVARCHAR}
+       )
+     </foreach>
+
+  </insert>
+
+  <select id="getInmobiLogs" resultMap="ResultMapWithBLOBs"  >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from inmobi_log
+    <where>
+      <if test="campaignId != null and campaignId !=''" >
+       and campaign_id = #{campaignId,jdbcType=VARCHAR}
+      </if>
+      <if test="campaignName != null and campaignName !=''" >
+        and campaign_name = #{campaignName,jdbcType=VARCHAR}
+      </if>
+      <if test="adgroupId != null and adgroupId !=''" >
+        and adgroup_id = #{adgroupId,jdbcType=VARCHAR}
+      </if>
+      <if test="adgroupName != null and adgroupName !=''" >
+        and adgroup_name = #{adgroupName,jdbcType=VARCHAR}
+      </if>
+      <if test="siteId != null and siteId !=''" >
+        and site_id = #{siteId,jdbcType=VARCHAR}
+      </if>
+      <if test="siteName != null and siteName !=''" >
+        and site_name like CONCAT('%',CONCAT(#{siteName,jdbcType=VARCHAR},'%'))
+      </if>
+      <if test="requestUid != null and requestUid !=''" >
+        and request_uid = #{requestUid,jdbcType=VARCHAR}
+      </if>
+      <if test="beginDate != null and beginDate !=''" >
+        and `date` &gt;= #{beginDate,jdbcType=DATE}
+      </if>
+      <if test="endDate != null and endDate !=''" >
+        and `date` &lt;= #{endDate,jdbcType=DATE}
+      </if>
+      <if test="adImpressionsRendered != null and adImpressionsRendered !=''" >
+        and  ad_impressions_rendered = #{adImpressionsRendered,jdbcType=LONGVARCHAR},
+      </if>
+    </where>
+    order by create_time desc
+    <if test="page!=null">
+     limit #{page,jdbcType=INTEGER},#{perpage,jdbcType=INTEGER}
+    </if>
+
+  </select>
+
+  <select id="getInmobiLogsCount" resultType="int" >
+    select
+    count(1)
+    from inmobi_log
+    <where>
+      <if test="campaignId != null and campaignId !=''" >
+        and campaign_id = #{campaignId,jdbcType=VARCHAR}
+      </if>
+      <if test="campaignName != null and campaignName !=''" >
+        and campaign_name = #{campaignName,jdbcType=VARCHAR}
+      </if>
+      <if test="adgroupId != null and adgroupId !=''" >
+        and adgroup_id = #{adgroupId,jdbcType=VARCHAR}
+      </if>
+      <if test="adgroupName != null and adgroupName !=''" >
+        and adgroup_name = #{adgroupName,jdbcType=VARCHAR}
+      </if>
+      <if test="siteId != null and siteId !=''" >
+        and site_id = #{siteId,jdbcType=VARCHAR}
+      </if>
+      <if test="siteName != null and siteName !=''" >
+        and site_name like CONCAT('%',CONCAT(#{siteName,jdbcType=VARCHAR},'%'))
+      </if>
+      <if test="requestUid != null and requestUid !=''" >
+        and request_uid = #{requestUid,jdbcType=VARCHAR}
+      </if>
+      <if test="beginDate != null and beginDate !=''" >
+        and `date` &gt;= #{beginDate,jdbcType=DATE}
+      </if>
+      <if test="endDate != null and endDate !=''" >
+        and `date` &lt;= #{endDate,jdbcType=DATE}
+      </if>
+      <if test="adImpressionsRendered != null and adImpressionsRendered !=''" >
+        and  ad_impressions_rendered = #{adImpressionsRendered,jdbcType=LONGVARCHAR},
+      </if>
+    </where>
+
+  </select>
+
+  <select id="getInmobiLogsByLogId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from inmobi_log
+    where   log_id in
+    <foreach collection="list" item="item" separator="," close=")" open="(">
+      #{item,jdbcType=INTEGER}
+    </foreach>
+    order by create_time desc
+
+  </select>
+
+
+  <delete id="deleteByLogIds">
+    delete from inmobi_log
+    where log_id in
+    <foreach collection="list" item="item" separator="," close=")" open="(">
+      #{item,jdbcType=INTEGER}
+    </foreach>
+  </delete>
+
+</mapper>

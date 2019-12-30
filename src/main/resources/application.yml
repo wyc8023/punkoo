@@ -1,0 +1,32 @@
+server:
+  port: 80
+  servlet:
+    context-path: /punkoo
+mybatis:
+  mapper-locations: classpath:mapper_xml/*.xml
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    name: test
+    jdbc-url: jdbc:mysql://127.0.0.1:3306/punkoo?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false&autoReconnect=true&allowMultiQueries=true&serverTimezone=UTC
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+logging:
+  level:
+    com.example.demo.mapper.*: debug
